@@ -1,5 +1,5 @@
 import React from 'react'
-import myImage from '../../Assets/pngegg (7).png'
+import myImage from '../../../../Assets/pngegg (7).png'
 import './rightcontent.css'
 
 
