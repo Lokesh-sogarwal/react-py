@@ -1,0 +1,93 @@
+/* Container that wraps the whole profile page */
+.profileContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: #f4f6f8;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Card that holds the profile details */
+.details {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Title */
+.details h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Text and inputs */
+.details p {
+  margin: 12px 0;
+  font-size: 15px;
+  color: #444;
+}
+
+.details span {
+  font-weight: bold;
+  color: #222;
+}
+
+.details input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.details input:focus {
+  border-color: #007bff;
+}
+
+/* Buttons layout */
+.buttons,
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.buttons button,
+.modal-buttons button {
+  flex: 1;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.buttons button:hover,
+.modal-buttons button:hover {
+  background-color: #0056b3;
+}
+
+/* Error text */
+.details p[style*="color: red"] {
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Loading state */
+.details h2.loading {
+  color: #666;
+  font-weight: normal;
+}
