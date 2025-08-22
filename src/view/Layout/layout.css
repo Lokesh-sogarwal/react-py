@@ -1,0 +1,11 @@
+.content-box{
+    margin-left:189px
+}
+.side-bar-container{
+    background-color: white;
+    position: fixed;
+    height: 100vh;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+    width: 199px;
+    border-radius: 10px;
+}

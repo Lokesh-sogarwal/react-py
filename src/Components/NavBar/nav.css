@@ -1,61 +1,141 @@
+/* Container for the entire navbar */
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: sticky;
+    /* top: 1px; */
+    z-index: 1000;
+    background-color: transparent;
+  
+}
+
+/* Navbar flex container */
 .nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: grey;
-    padding: 15px 30px;
-    color: white;
+    padding: 0.5rem 2rem;
+    width: 97%;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    margin-bottom: 10px;
+
 }
 
-.logo {
-    font-size: 20px;
-    font-weight: bold;
+.path {
+  margin: 1rem 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #4B6EC0; /* base breadcrumb color */
 }
 
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.breadcrumb span {
+  color: #4B6EC0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb span:hover {
+  color: #4e73df;
+  text-decoration: underline;
+}
+
+/* Separator styling */
+.breadcrumb span:nth-child(2n) {
+  margin: 0 0.5rem;
+  color: #888; /* lighter color for '/' */
+  cursor: default;
+  text-decoration: none;
+}
+
+
+/* Links section */
 .nav-links {
     display: flex;
-    gap: 20px;
-}
-.btn-link{
-    background-color: transparent;
-    border: none;
-    font-size: 16px;
+    align-items: center;
+    gap: 1rem;
 }
 
+/* Individual nav button links */
 .nav-link {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
 }
 
 .nav-link:hover {
-    text-decoration: underline;
+    color: #007bff;
 }
 
+/* Buttons section (Login / User icon) */
 .buttons {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 20px;
 }
 
-.btn {
-    background: transparent;
-    border: 1px solid white;
-    padding: 8px 14px;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
+.buttons .btn {
+  background: #4a90e2;   /* Primary blue */
+  color: white;
+  border: none;
+  outline: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
+  /* transition: all 0.3s ease; */
 }
 
-.btn:hover {
-    background: white;
-    color: #2a00b7;
+.buttons .btn:hover {
+  background: #357ab8;   /* Darker blue on hover */
+  /* transform: translateY(-2px); */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
-.btn-primary {
-    background: #ff6b6b;
-    border: none;
+.buttons .btn:active {
+  /* transform: translateY(0); */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.btn-primary:hover {
-    background: #ff4757;
+.buttons .btn svg {
+  font-size: 20px; /* Adjust icon size */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.5rem 1rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    .buttons {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 0.5rem;
+    }
 }

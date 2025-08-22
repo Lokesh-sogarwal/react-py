@@ -1,0 +1,89 @@
+/* Container styling */
+.add-blog-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+.add-blog-container h2 {
+  text-align: center;
+  color: #4B6EC0;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+/* Form groups */
+.add-blog-container form div {
+  margin-bottom: 15px;
+}
+
+/* Labels */
+.add-blog-container label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+/* Inputs */
+.add-blog-container input[type="text"],
+.add-blog-container textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.add-blog-container input[type="text"]:focus,
+.add-blog-container textarea:focus {
+  outline: none;
+  border-color: #4B6EC0;
+  box-shadow: 0 0 4px rgba(75, 110, 192, 0.3);
+}
+
+/* Textarea */
+.add-blog-container textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Checkbox */
+.add-blog-container input[type="checkbox"] {
+  margin-right: 8px;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.add-blog-container label input[type="checkbox"] + span {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Button */
+.add-blog-container button {
+  width: 100%;
+  padding: 12px;
+  background: #4B6EC0;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.add-blog-container button:hover {
+  background: #3b59a1;
+}
+
+/* Toast positioning override */
+.Toastify__toast-container {
+  top: 70px;
+}
