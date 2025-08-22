@@ -1,229 +1,213 @@
-import React, { useState, useEffect } from 'react';
-import './LoginSignup.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faLock, faUser, faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from "react";
+import "./LoginSignup.css";
+import myimage from "../../../Assets/login.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook, faGoogle, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from "react-toastify"; 
+import { auth, provider, signInWithPopup } from "../../../firebase"; 
 
 const LoginSignup = () => {
   const [action, setAction] = useState("Login");
-  const [isToggled, setIsToggled] = useState(false);
-  const navigate = useNavigate();
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
-    password: ""
+    password: "",
   });
-  // console.log(formData);
+  const navigate = useNavigate();
 
-  const handleToggle = () => {
-    setIsToggled(!isToggled);
+  // ✅ toggle Login <-> Signup
+  const toggleAction = () => {
+    setAction((prev) => (prev === "Login" ? "Signup" : "Login"));
   };
 
-  // Update form state on change
+  // ✅ Google Login
+  const GoogleLogin = async () => {
+    try {
+      const res = await signInWithPopup(auth, provider);
+      const user = res.user;
+      console.log("Google User:", user);
+      const token = user.accessToken;
+      const jwt_token = user.getIdToken();
+      console.log("JWT Token:", jwt_token);
+      localStorage.setItem("token", token);
+      toast.success(`Welcome ${user.displayName || "User"}!`);
+      navigate("/dashboard"); // redirect after Google login
+    } catch (error) {
+      console.error("Error during Google sign-in:", error);
+      toast.error("Google Sign-in failed!");
+    }
+  };
+
+  // ✅ handle form change
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
-  useEffect(() => {
-    if (isToggled) {
-      document.body.classList.add("dark-mode");
-    } else {
-      document.body.classList.remove("dark-mode");
-    }
-  }, [isToggled]);
+  // ✅ handle submit (Login / Signup)
+  const submit = async (e) => {
+    e.preventDefault();
 
-  const submit = async () => {
-    if (action === 'Login') {
+    if (action === "Login") {
       try {
         const res = await fetch("http://localhost:5000/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
+          credentials: "include",
         });
-        // console.log("res", res);
 
         const data = await res.json();
-        console.log("data", data);
-
         if (!res.ok) {
           setError(data.error || "Something went wrong");
-          toast.error(data.error || "Something went wrong", {
-          });
+          toast.error(data.error || "Something went wrong");
           return;
-        } else {
-          if (data.token) {
-            localStorage.setItem("token", data.token);
-            console.log("tokken stored");
-            toast.success("Login Succesfull");
-            navigate("/dashboard")    
-            console.log("Login succesfull ready to naviagte to dashboard");
-          }
+        }
+
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          toast.success("Login Successful");
+          navigate("/dashboard");
         }
       } catch (err) {
         setError("Server error. Please try again later.");
-        toast.error("Server error. Please try again later.", {
-          position: "top-right",
-        });
+        toast.error("Server error. Please try again later.");
       }
     } else {
-
       try {
         const res = await fetch("http://localhost:5000/auth/signup", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...formData,
-            is_password_change: true
+            is_password_change: true,
+            role: "student",
           }),
         });
 
         const data = await res.json();
-        console.log("data", data);
-
         if (!res.ok) {
           setError(data.error || "Something went wrong");
-          toast.error(data.error || "Something went wrong", {
-          });
+          toast.error(data.error || "Something went wrong");
           return;
-        } else {
-          toast.success("User registered Successfully");
-          setAction("Login");
         }
+
+        toast.success("User registered successfully");
+        setAction("Login");
       } catch (err) {
         setError("Server error. Please try again later.");
-        toast.error("Server error. Please try again later.", {
-          position: "top-right",
-        });
+        toast.error("Server error. Please try again later.");
       }
-
     }
   };
 
   return (
-    <div className="body">
-
-      <div className="container">
-        {/* Header */}
-        <div className="header">
-          <div className="text">{action}</div>
-          <div className="underline"></div>
+    <div className="login-main">
+      <div className="login-signup-container">
+        {/* LEFT SIDE */}
+        <div className="leftcontainer">
+          <img src={myimage} alt="Login" width={450} />
+          <div className="text">
+            Discover the power of personalized health insights <br />
+            and seamless integration with your daily routine.
+          </div>
         </div>
 
-        {/* Input Fields */}
-        <div className="inputs">
-          {action !== "Login" && (
-            <div className="input">
-              <FontAwesomeIcon icon={faUser} />
-              <input
-                type="text"
-                placeholder="Full Name"
-                name="fullname"
-                value={formData.fullname}
-                onChange={handleChange}
-              />
+        {/* RIGHT SIDE WITH FLIP */}
+        <div className="rightcontainer">
+          <div className={`flip-card ${action === "Signup" ? "flipped" : ""}`}>
+            
+            {/* FRONT - LOGIN */}
+            <div className="flip-card-front">
+              <div className="right-wrap">
+                <div className="login-text" style={{ color: "black" }}>Login</div>
+                <form onSubmit={submit}>
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                  />
+                  <button type="submit">Login</button>
+                  <div className="forgot-password">
+                    <a href="#" style={{ textDecoration: "none" }}>Forgot Password?</a>
+                  </div>
+                </form>
+                <div className="footer">
+                  <p>
+                    Don’t have an account? <span onClick={toggleAction}>Sign Up</span>
+                  </p>
+                </div>
+                <div className="social-signup">
+                  <button onClick={GoogleLogin}><FontAwesomeIcon icon={faGoogle} size="lg" /></button>
+                  <button><FontAwesomeIcon icon={faFacebook} size="lg" /></button>
+                  <button><FontAwesomeIcon icon={faTwitter} size="lg" /></button>
+                </div>
+              </div>
             </div>
-          )}
 
-          <div className="input">
-            <FontAwesomeIcon icon={faEnvelope} />
-            <input
-              type="email"
-              placeholder="Email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </div>
+            {/* BACK - SIGNUP */}
+            <div className="flip-card-back">
+              <div className="right-wrap">
+                <div className="login-text" style={{ color: "black" }}>Sign Up</div>
+                <form onSubmit={submit}>
+                  <input
+                    type="text"
+                    placeholder="Fullname"
+                    name="fullname"
+                    value={formData.fullname}
+                    onChange={handleChange}
+                    required
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                  />
+                  <button type="submit">Sign Up</button>
+                </form>
+                <div className="footer">
+                  <p>
+                    Already have an account? <span onClick={toggleAction}>Login</span>
+                  </p>
+                </div>
+                <div className="social-signup">
+                  <button onClick={GoogleLogin}><FontAwesomeIcon icon={faGoogle} size="lg" /></button>
+                  <button><FontAwesomeIcon icon={faFacebook} size="lg" /></button>
+                  <button><FontAwesomeIcon icon={faTwitter} size="lg" /></button>
+                </div>
+              </div>
+            </div>
 
-          <div className="input">
-            <FontAwesomeIcon icon={faLock} />
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
           </div>
         </div>
-
-        {/* Forgot Password */}
-        {action === "Login" && (
-          <div className="forgot-password">
-            Lost Password? <span>Click Here</span>
-          </div>
-        )}
-
-        {/* Action Buttons */}
-        <div className="submit-container">
-          <div
-            className={action === "Login" ? "submit" : "submit gray"}
-            onClick={() => {
-              if (action !== "Login") {
-                // Just switch to Login mode, don't validate yet
-                setAction("Login");
-                return;
-              }
-              // Already in Login mode — now validate and submit
-              if (
-                formData.email.trim() !== "" &&
-                formData.password.trim() !== ""
-              ) {
-                submit();
-              } else {
-                toast.error("Please fill in email and password", { position: "top-right" });
-              }
-            }}
-          >
-            Login
-          </div>
-
-
-          <div
-            className={action === "Sign Up" ? "submit" : "submit gray"}
-            onClick={() => {
-              if (action !== "Sign Up") {
-                // Just switch the mode, no validation yet
-                setAction("Sign Up");
-                return;
-              }
-
-              // If already in "Sign Up" mode, validate and submit
-              if (
-                formData.fullname.trim() &&
-                formData.email.trim() &&
-                formData.password.trim()
-              ) {
-                submit();
-              } else {
-                toast.error("Please fill in all fields", { position: "top-right" });
-              }
-            }}
-          >
-            Sign Up
-          </div>
-
-
-        </div>
-
-
-        {/* Toggle Button */}
-        <div className="toggle-button" onClick={handleToggle}>
-          <FontAwesomeIcon
-            icon={isToggled ? faToggleOn : faToggleOff}
-            size="2x"
-            style={{ cursor: 'pointer', color: isToggled ? '#4caf50' : '#2a00b7' }}
-          />
-        </div>
-        <ToastContainer />
-      </div>
+      </div>  
     </div>
   );
 };

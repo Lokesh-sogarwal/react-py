@@ -1,32 +1,49 @@
-/* Container that wraps the whole profile page */
+/* === Layout Wrapper === */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  position: relative;
+  z-index: 10;
+}
+
+/* === Sidebar Area === */
+.layout .sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  z-index: 20;
+}
+
+/* === Profile Container === */
 .profileContainer {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-height: 100vh;
-  background: #f4f6f8;
+  gap: 24px; /* space between card & image */
   padding: 40px 20px;
-  font-family: Arial, sans-serif;
+  overflow-y: auto;
+  position: relative;
+  z-index: 5;
 }
 
-/* Card that holds the profile details */
+/* === Profile Card === */
 .details {
+  flex: 2; /* takes ~70% width */
   background: #ffffff;
   padding: 24px;
   border-radius: 12px;
-  width: 100%;
-  max-width: 420px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* Title */
+/* === Title === */
 .details h2 {
   text-align: center;
   margin-bottom: 20px;
   color: #333;
 }
 
-/* Text and inputs */
+/* === Profile Info Text === */
 .details p {
   margin: 12px 0;
   font-size: 15px;
@@ -38,6 +55,7 @@
   color: #222;
 }
 
+/* === Inputs === */
 .details input {
   width: 100%;
   padding: 8px;
@@ -53,11 +71,11 @@
   border-color: #007bff;
 }
 
-/* Buttons layout */
+/* === Buttons Layout === */
 .buttons,
 .modal-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   gap: 10px;
   margin-top: 18px;
 }
@@ -65,6 +83,7 @@
 .buttons button,
 .modal-buttons button {
   flex: 1;
+  max-width: 150px;
   padding: 10px;
   background-color: #007bff;
   color: #fff;
@@ -72,22 +91,76 @@
   border-radius: 6px;
   font-size: 14px;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
 
 .buttons button:hover,
 .modal-buttons button:hover {
   background-color: #0056b3;
+  transform: translateY(-1px);
 }
 
-/* Error text */
+/* === Error Message === */
 .details p[style*="color: red"] {
   text-align: center;
   font-size: 14px;
+  margin-top: 10px;
 }
 
-/* Loading state */
+/* === Loading State === */
 .details h2.loading {
   color: #666;
   font-weight: normal;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* === Background Image === */
+.background img {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed; /* stays fixed even on scroll */
+  top: 0;
+  left: 0;
+  z-index: -10;
+}
+
+/* === Profile Image Box === */
+.profile-image {
+  flex: 1; /* takes ~30% width */
+  display: flex;
+  flex-direction: column; /* stack image & button */
+  justify-content: flex-start;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.profile-image img {
+  width: 100%;
+  max-width: 220px;
+  border-radius: 50%; /* round profile pic */
+  object-fit: cover;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* === Responsive Fix === */
+@media (max-width: 992px) {
+  .profileContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .details, .profile-image {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .profile-image {
+    margin-top: 20px;
+  }
 }
