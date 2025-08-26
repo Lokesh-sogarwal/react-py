@@ -23,14 +23,7 @@ const Sidebar = () => {
   }
 
   const handleClick = async (item) => {
-    if (item.id === 4) {
-      // Logout
-      await Logout(token);
-      localStorage.removeItem("token");
-      navigate("/");
-    } else {
       navigate(item.link);
-    }
   };
 
   // ✅ Filter menu items based on login & role

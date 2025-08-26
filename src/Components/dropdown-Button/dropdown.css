@@ -1,53 +1,60 @@
-/* Style for the Dropdown Button */
-#dropdown-basic-button {
-  background-color: #4e73df; /* Primary blue */
-  color: white;
-  font-weight: 500;
-  padding: 10px 18px;
-  border-radius: 8px;
-  border: none;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  transition: all 0.3s ease;
+.hamburger-menu {
+  position: relative;
+  display: inline-block;
+  z-index: 1000; /* Keep menu on top */
 }
 
-#dropdown-basic-button:hover,
-#dropdown-basic-button:focus {
-  background-color: #2e59d9; /* Darker blue */
-  transform: translateY(-2px);
-}
-
-/* Dropdown Menu Styling */
-.dropdown-menu {
-  border-radius: 10px;
-  border: none;
+/* The dropdown menu */
+.menu {
+  position: absolute;
+  top: 45px;       /* adjust based on your hamburger size */
+  right: 0;        /* aligns menu to the right edge */
+  background: #ffffff;
+  border-radius: 12px;
   padding: 8px 0;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-  background-color: #fff;
+  min-width: 180px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: fadeIn 0.2s ease-in-out;
 }
 
-/* Dropdown Item Styling */
-.dropdown-item {
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-  padding: 10px 18px;
+/* Each menu item */
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
   font-size: 15px;
   color: #333;
-  transition: all 0.2s ease;
-  border-radius: 6px;
-  margin: 2px 6px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
 }
 
-.dropdown-item:hover {
-  background-color: #f1f3f9;
-  color: #4e73df;
-  font-weight: 500;
+/* Hover effect */
+.menu-item:hover {
+  background: #f5f5f5;
+  color: #007bff; /* Bootstrap blue or any theme color */
 }
 
-/* Active Item (when selected) */
-.dropdown-item.active,
-.dropdown-item:active {
-  background-color: #4e73df;
-  color: white;
-  font-weight: 600;
+/* Small animation for dropdown */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+.custom-icon {
+  cursor: pointer;
+  font-size: 24px;
+  color: #333;
+  transition: transform 0.2s ease;
+}
+
+.custom-icon:hover {
+  transform: scale(1.1);
+  color: #007bff;
+}
+

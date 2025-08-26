@@ -10,6 +10,7 @@ import Published_Blogs from '../view/users/Blogs/user_blogs/User_blogs';
 import Blogs_Dashboard from '../view/users/Blogs/blog_dashboard/blog_dashboard';
 import UserBlog from '../view/users/Blogs/user_blogs/User_blogs';
 import EditBlog from '../view/users/Blogs/editBlog/edit_blogs';
+import Chat from '../view/Chatbox/chat';
 
 
 export const userRoutes = [
@@ -73,5 +74,10 @@ export const userRoutes = [
     path:"edit_blogs/:id",
     element:<EditBlog/>
   },
+  {
+    id:13,
+    path:"Chats",
+    element:<Chat/>
+  }
 
 ];

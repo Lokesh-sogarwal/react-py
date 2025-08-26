@@ -1,4 +1,4 @@
-export const Logout = async (token) => {
+export  const Logout = async (token) => {
         if (!token) return;
 
         try {

@@ -3,6 +3,7 @@ import './nav.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { FaUserCircle } from "react-icons/fa";
+import DropButton from '../dropdown-Button/dropdown';
 
 const Nav = () => {
     const token = localStorage.getItem('token');
@@ -70,15 +71,7 @@ const Nav = () => {
                     </span>
                 </div>
 
-                <div className="buttons">
-                    {islogin ? (
-                        <button className="btn" onClick={() => navigate('/profile')}>
-                            <FaUserCircle />
-                        </button>
-                    ) : (
-                        <button className="btn" onClick={() => navigate('/login')}>Login</button>
-                    )}
-                </div>
+                <DropButton/>
             </div>
         </div>
     );
