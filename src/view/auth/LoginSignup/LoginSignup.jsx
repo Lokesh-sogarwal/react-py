@@ -29,8 +29,6 @@ const LoginSignup = () => {
       const user = res.user;
       console.log("Google User:", user);
       const token = user.accessToken;
-      const jwt_token = user.getIdToken();
-      console.log("JWT Token:", jwt_token);
       localStorage.setItem("token", token);
       toast.success(`Welcome ${user.displayName || "User"}!`);
       navigate("/dashboard"); // redirect after Google login

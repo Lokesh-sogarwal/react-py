@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <div className="d-flex">
+      <div className="d-flex layout-container">
         <div className="side-bar-container">
           <Sidebar />
         </div>

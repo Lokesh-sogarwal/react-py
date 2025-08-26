@@ -10,7 +10,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import Sidebar from "../../Layout/Sidebar/Sidebar";
 
 Modal.setAppElement("#root");
 

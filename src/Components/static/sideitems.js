@@ -1,6 +1,7 @@
 import { MdDashboard } from "react-icons/md";
-import { FaUser, FaUsers, FaSignOutAlt, FaSignInAlt, FaUserPlus, FaBlog } from "react-icons/fa";
+import { FaUser, FaUsers, FaSignOutAlt, FaUserPlus, FaBlog } from "react-icons/fa";
 import { IoAdd } from "react-icons/io5";
+import { TiMessages } from "react-icons/ti";
 
 
 export const Items = [
@@ -24,39 +25,27 @@ export const Items = [
   },
   {
     id: 7,
+    title: "Chats",
+    icon: <TiMessages />,
+    link: "/Chats",
+  },
+  {
+    id: 4,
     title: "Active Users",
     icon: <FaUserPlus />,
     link: "/active_users",
   },
   {
-    id: 9,
+    id: 5,
     title: "Blogs",
     icon: <FaBlog />,
     link: "/blogs",
   },
   {
-    id: 8,
+    id: 6,
     title: "Add Blogs",
     icon: <IoAdd />,
     link: "/add_blogs",
   },
-  {
-    id: 4,
-    title: "Logout",
-    icon: <FaSignOutAlt />,
-    // link: "/logout",
-  },
-  {
-    id: 5,
-    title: "Login",
-    icon: <FaSignInAlt />,
-    link: "/",
-  },
-  {
-    id: 6,
-    title: "Signup",
-    icon: <FaUserPlus />,
-    link: "/signup",
-  }
   
 ];
